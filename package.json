@@ -1,0 +1,60 @@
+{
+  "$schema": "https://www.schemastore.org/package.json",
+  "name": "@dnd-mapp/config-prettier",
+  "description": "Prettier configuration shared across D&D Mapp projects.",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "author": "D&D Mapp",
+  "keywords": [
+    "dnd-mapp",
+    "prettier",
+    "prettier-config",
+    "config",
+    "formatting"
+  ],
+  "homepage": "https://github.com/dnd-mapp/config-prettier#readme",
+  "bugs": {
+    "url": "https://github.com/dnd-mapp/config-prettier/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dnd-mapp/config-prettier.git"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./*": "./configs/*.js",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public",
+    "directory": "dist"
+  },
+  "scripts": {
+    "prepublishOnly": "node scripts/prepare-dist.js",
+    "format": "prettier -w .",
+    "format-check": "prettier -c ."
+  },
+  "engines": {
+    "node": "^24.21.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "24.21.0",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.4.2",
+      "onFail": "error"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "prettier": "catalog:prettier"
+  },
+  "peerDependencies": {
+    "prettier": "^3"
+  }
+}
