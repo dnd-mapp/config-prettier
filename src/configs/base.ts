@@ -1,5 +1,7 @@
-/** @type {import('prettier').Config} */
-const config = {
+import type { Config } from 'prettier';
+
+/** The base Prettier config for D&D Mapp projects. */
+const config: Config = {
     overrides: [
         {
             files: ['*.yaml', '*.yml'],

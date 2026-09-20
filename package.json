@@ -22,8 +22,14 @@
     "url": "git+https://github.com/dnd-mapp/config-prettier.git"
   },
   "exports": {
-    ".": "./index.js",
-    "./*": "./configs/*.js",
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./*": {
+      "types": "./configs/*.d.ts",
+      "default": "./configs/*.js"
+    },
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -33,7 +39,8 @@
   "scripts": {
     "prepublishOnly": "node scripts/prepare-dist.js",
     "format": "prettier -w .",
-    "format-check": "prettier -c ."
+    "format-check": "prettier -c .",
+    "lint-md": "markdownlint-cli2"
   },
   "engines": {
     "node": "^24.21.0"
@@ -51,10 +58,25 @@
     }
   },
   "devDependencies": {
+    "@dnd-mapp/config-markdown": "catalog:",
+    "@dnd-mapp/config-typescript": "catalog:",
     "@types/node": "catalog:",
-    "prettier": "catalog:prettier"
+    "markdownlint-cli2": "catalog:",
+    "prettier": "catalog:prettier",
+    "prettier-plugin-organize-imports": "catalog:prettier",
+    "typescript": "catalog:"
   },
   "peerDependencies": {
-    "prettier": "^3"
+    "prettier": "^3",
+    "prettier-plugin-organize-imports": "^4",
+    "typescript": "^6"
+  },
+  "peerDependenciesMeta": {
+    "prettier-plugin-organize-imports": {
+      "optional": true
+    },
+    "typescript": {
+      "optional": true
+    }
   }
 }
