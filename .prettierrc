@@ -1,0 +1,13 @@
+{
+    "overrides": [
+        {
+            "files": ["*.yaml", "*.yml"],
+            "options": {
+                "singleQuote": false
+            }
+        }
+    ],
+    "printWidth": 120,
+    "quoteProps": "consistent",
+    "singleQuote": true
+}

@@ -1,0 +1,14 @@
+*
+
+!*/
+
+!*.json
+!*.yaml
+!*.yml
+!*.[tj]s
+!*.[cm][tj]s
+
+.idea/
+
+node_modules/
+pnpm-lock.yaml
