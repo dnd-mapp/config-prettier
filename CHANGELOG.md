@@ -8,7 +8,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- `organize-imports` config, available as `@dnd-mapp/config-prettier/organize-imports`. It extends `base` with `prettier-plugin-organize-imports`.
 - Type declarations for every config. Each one is typed as a Prettier `Config`.
+- `prettier-plugin-organize-imports` and `typescript` as optional peer dependencies. Install them to use the `organize-imports` config.
 
 ## [1.0.0] - 2026-09-20
 

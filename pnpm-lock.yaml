@@ -184,6 +184,9 @@ catalogs:
     prettier:
       specifier: ~3.9.7
       version: 3.9.7
+    prettier-plugin-organize-imports:
+      specifier: ~4.3.0
+      version: 4.3.0
 
 importers:
 
@@ -204,6 +207,9 @@ importers:
       prettier:
         specifier: catalog:prettier
         version: 3.9.7
+      prettier-plugin-organize-imports:
+        specifier: catalog:prettier
+        version: 4.3.0(prettier@3.9.7)(typescript@6.0.3)
       typescript:
         specifier: 'catalog:'
         version: 6.0.3
@@ -493,6 +499,16 @@ packages:
   picomatch@2.3.2:
     resolution: {integrity: sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==}
     engines: {node: '>=8.6'}
+
+  prettier-plugin-organize-imports@4.3.0:
+    resolution: {integrity: sha512-FxFz0qFhyBsGdIsb697f/EkvHzi5SZOhWAjxcx2dLt+Q532bAlhswcXGYB1yzjZ69kW8UoadFBw7TyNwlq96Iw==}
+    peerDependencies:
+      prettier: '>=2.0'
+      typescript: '>=2.9'
+      vue-tsc: ^2.1.0 || 3
+    peerDependenciesMeta:
+      vue-tsc:
+        optional: true
 
   prettier@3.9.7:
     resolution: {integrity: sha512-T3mF5P7HFzZVLDQuCUNtJj6WK1pcpLMweMNUVwGb01bLNkH9AkKxtZvmInw8K6bnn2O3d6/5RHl6zSHiBAD0Og==}
@@ -923,6 +939,11 @@ snapshots:
       is-hexadecimal: 2.0.1
 
   picomatch@2.3.2: {}
+
+  prettier-plugin-organize-imports@4.3.0(prettier@3.9.7)(typescript@6.0.3):
+    dependencies:
+      prettier: 3.9.7
+      typescript: 6.0.3
 
   prettier@3.9.7: {}
 

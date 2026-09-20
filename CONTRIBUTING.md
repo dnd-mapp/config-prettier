@@ -33,7 +33,7 @@ The `prepublishOnly` script compiles the sources to JavaScript and type declarat
 
 When you add a config, build it on `base` by importing and spreading it, so a change to `base` reaches every config. Prettier does not merge `overrides` on spread, so concatenate the arrays instead.
 
-Keep every config limited to formatting options. Do not add plugins or options that depend on the project or the environment. Consumers can extend the config in their own Prettier configuration.
+Keep every config limited to formatting options and the plugins that format code. Do not add options that depend on the project or the environment. Keep `base` free of plugins. Consumers can extend the config in their own Prettier configuration.
 
 Check and format the repository with these commands.
 

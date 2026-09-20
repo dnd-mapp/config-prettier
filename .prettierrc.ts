@@ -1,1 +1,1 @@
-export { default } from './src/configs/base.ts';
+export { default } from './src/configs/organize-imports.ts';

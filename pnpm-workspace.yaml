@@ -29,3 +29,4 @@ catalog:
 catalogs:
   prettier:
     prettier: ~3.9.7
+    prettier-plugin-organize-imports: ~4.3.0

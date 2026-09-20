@@ -37,13 +37,30 @@ export default {
 
 ## Available configs
 
-| Config | Import path                      | Description                        |
-|:-------|:---------------------------------|:-----------------------------------|
-| `base` | `@dnd-mapp/config-prettier/base` | The default config for any project |
+| Config             | Import path                                  | Description                                     |
+|:-------------------|:---------------------------------------------|:------------------------------------------------|
+| `base`             | `@dnd-mapp/config-prettier/base`             | The default config for any project              |
+| `organize-imports` | `@dnd-mapp/config-prettier/organize-imports` | Extends `base` with the organize imports plugin |
 
 The package root, `@dnd-mapp/config-prettier`, resolves to `base`.
 
 Every config ships with type declarations. Each one is typed as a Prettier `Config`, so it works in a `prettier.config.ts` file.
+
+### `organize-imports`
+
+This config includes everything from `base` and adds [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports). The plugin sorts and removes unused imports when Prettier formats a file.
+
+The plugin is an optional peer dependency, so install it together with `typescript`, which it requires.
+
+```bash
+pnpm add --save-dev prettier prettier-plugin-organize-imports typescript @dnd-mapp/config-prettier
+```
+
+Then re-export the config from a `prettier.config.js` file.
+
+```js
+export { default } from '@dnd-mapp/config-prettier/organize-imports';
+```
 
 ## What `base` sets
 

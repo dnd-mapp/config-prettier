@@ -63,9 +63,20 @@
     "@types/node": "catalog:",
     "markdownlint-cli2": "catalog:",
     "prettier": "catalog:prettier",
+    "prettier-plugin-organize-imports": "catalog:prettier",
     "typescript": "catalog:"
   },
   "peerDependencies": {
-    "prettier": "^3"
+    "prettier": "^3",
+    "prettier-plugin-organize-imports": "^4",
+    "typescript": "^6"
+  },
+  "peerDependenciesMeta": {
+    "prettier-plugin-organize-imports": {
+      "optional": true
+    },
+    "typescript": {
+      "optional": true
+    }
   }
 }
