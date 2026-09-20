@@ -21,7 +21,9 @@ catalogMode: "strict"
 savePrefix: "~"
 
 catalog:
+  "@dnd-mapp/config-markdown": ~1.0.0
   "@types/node": ~24.13.5
+  markdownlint-cli2: ~0.23.2
 catalogs:
   prettier:
     prettier: ~3.9.7

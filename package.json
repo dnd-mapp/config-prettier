@@ -33,7 +33,8 @@
   "scripts": {
     "prepublishOnly": "node scripts/prepare-dist.js",
     "format": "prettier -w .",
-    "format-check": "prettier -c ."
+    "format-check": "prettier -c .",
+    "lint-md": "markdownlint-cli2"
   },
   "engines": {
     "node": "^24.21.0"
@@ -51,7 +52,9 @@
     }
   },
   "devDependencies": {
+    "@dnd-mapp/config-markdown": "catalog:",
     "@types/node": "catalog:",
+    "markdownlint-cli2": "catalog:",
     "prettier": "catalog:prettier"
   },
   "peerDependencies": {
