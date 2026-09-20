@@ -168,12 +168,18 @@ catalogs:
     '@dnd-mapp/config-markdown':
       specifier: ~1.0.0
       version: 1.0.0
+    '@dnd-mapp/config-typescript':
+      specifier: ~1.0.0
+      version: 1.0.0
     '@types/node':
       specifier: ~24.13.5
       version: 24.13.5
     markdownlint-cli2:
       specifier: ~0.23.2
       version: 0.23.2
+    typescript:
+      specifier: ~6.0.3
+      version: 6.0.3
   prettier:
     prettier:
       specifier: ~3.9.7
@@ -186,6 +192,9 @@ importers:
       '@dnd-mapp/config-markdown':
         specifier: 'catalog:'
         version: 1.0.0(markdownlint-cli2@0.23.2)
+      '@dnd-mapp/config-typescript':
+        specifier: 'catalog:'
+        version: 1.0.0(typescript@6.0.3)
       '@types/node':
         specifier: 'catalog:'
         version: 24.13.5
@@ -195,6 +204,9 @@ importers:
       prettier:
         specifier: catalog:prettier
         version: 3.9.7
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
     publishDirectory: dist
 
 packages:
@@ -210,6 +222,12 @@ packages:
         optional: true
       markdownlint-cli2:
         optional: true
+
+  '@dnd-mapp/config-typescript@1.0.0':
+    resolution: {integrity: sha512-bnBzo47sk3NhjgdhkupU0Svte2jh3b08U/i3zdhtCDqmxzHixuDpk4DH//p9pRMdImaIWigkSu98BTeVr9L6iQ==}
+    engines: {node: ^24.21.0}
+    peerDependencies:
+      typescript: ^6
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -515,6 +533,11 @@ packages:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
 
+  typescript@6.0.3:
+    resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   uc.micro@2.1.0:
     resolution: {integrity: sha512-ARDJmphmdvUk6Glw7y9DQ2bFkKBHwQHLi2lsaH6PPmz/Ka9sFOBsBluozhDltWmnv9u/cF6Rt87znRTPV+yp/A==}
 
@@ -530,6 +553,10 @@ snapshots:
   '@dnd-mapp/config-markdown@1.0.0(markdownlint-cli2@0.23.2)':
     optionalDependencies:
       markdownlint-cli2: 0.23.2
+
+  '@dnd-mapp/config-typescript@1.0.0(typescript@6.0.3)':
+    dependencies:
+      typescript: 6.0.3
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -925,6 +952,8 @@ snapshots:
   to-regex-range@5.0.1:
     dependencies:
       is-number: 7.0.0
+
+  typescript@6.0.3: {}
 
   uc.micro@2.1.0: {}
 

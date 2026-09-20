@@ -43,6 +43,8 @@ export default {
 
 The package root, `@dnd-mapp/config-prettier`, resolves to `base`.
 
+Every config ships with type declarations. Each one is typed as a Prettier `Config`, so it works in a `prettier.config.ts` file.
+
 ## What `base` sets
 
 | Option        | Value          | Description                                      |

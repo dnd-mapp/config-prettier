@@ -22,8 +22,14 @@
     "url": "git+https://github.com/dnd-mapp/config-prettier.git"
   },
   "exports": {
-    ".": "./index.js",
-    "./*": "./configs/*.js",
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./*": {
+      "types": "./configs/*.d.ts",
+      "default": "./configs/*.js"
+    },
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -53,9 +59,11 @@
   },
   "devDependencies": {
     "@dnd-mapp/config-markdown": "catalog:",
+    "@dnd-mapp/config-typescript": "catalog:",
     "@types/node": "catalog:",
     "markdownlint-cli2": "catalog:",
-    "prettier": "catalog:prettier"
+    "prettier": "catalog:prettier",
+    "typescript": "catalog:"
   },
   "peerDependencies": {
     "prettier": "^3"

@@ -1,14 +1,17 @@
 /**
  * Prepares the `dist` directory that gets published to npm.
  *
- * Copies the files that consumers need and writes a trimmed `package.json` next to them. It runs from the
- * `prepublishOnly` script, and `publishConfig.directory` points the publish at `dist`.
+ * Compiles the TypeScript sources to JavaScript and type declarations, copies the other files that consumers need,
+ * and writes a trimmed `package.json` next to them. It runs from the `prepublishOnly` script, and
+ * `publishConfig.directory` points the publish at `dist`.
  *
  * The files are first assembled in a staging directory. It replaces `dist` only when every step succeeded, so a
  * failed run never leaves a partial `dist` behind.
  */
-import { access, cp, mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { spawn } from 'node:child_process';
+import { access, cp, mkdir, readdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
+import { basename, dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 /** The root directory of the repository. */
 const rootDir = join(import.meta.dirname, '..');
@@ -28,8 +31,14 @@ const REMOVED_FIELDS = ['$schema', 'scripts', 'devDependencies', 'devEngines'];
  * @typedef {{ name: string; version: string; exports?: unknown; publishConfig?: { directory?: string }; [field: string]: unknown }} Manifest
  */
 
+/** The entry point of the TypeScript compiler that is installed as a development dependency. */
+const tscPath = fileURLToPath(import.meta.resolve('typescript/bin/tsc'));
+
+/** The TypeScript configuration that compiles the sources into JavaScript and type declarations. */
+const buildConfigPath = join(rootDir, 'tsconfig.build.json');
+
 /** Files and directories, relative to the repository root, that are copied into `dist` as they are. */
-const INCLUDED = ['index.js', 'configs', 'CHANGELOG.md', 'README.md', 'LICENSE'];
+const INCLUDED = ['CHANGELOG.md', 'README.md', 'LICENSE'];
 
 /**
  * Runs a function and, when it throws or rejects, rethrows the failure as an error with a descriptive message.
@@ -100,6 +109,35 @@ async function writeManifest(directory, manifest) {
 }
 
 /**
+ * Compiles the TypeScript sources into the given directory.
+ *
+ * Emits the JavaScript and the type declarations. The compiler reports its diagnostics to the console.
+ *
+ * @param {string} directory The directory to compile into.
+ * @returns {Promise<void>}
+ * @throws {Error} When the compiler cannot be started or reports errors.
+ */
+async function compileSources(directory) {
+    await withContext(
+        'Failed to compile the sources',
+        () =>
+            new Promise((resolve, reject) => {
+                const args = [tscPath, '-p', buildConfigPath, '--outDir', directory];
+                const child = spawn(process.execPath, args, { cwd: rootDir, stdio: 'inherit' });
+
+                child.on('error', reject);
+                child.on('close', (code) => {
+                    if (code === 0) {
+                        resolve(undefined);
+                    } else {
+                        reject(new Error(`The compiler exited with code ${code}`));
+                    }
+                });
+            }),
+    );
+}
+
+/**
  * Copies every entry of {@link INCLUDED} from the repository root into the given directory.
  *
  * The entries are independent of each other, so they are copied in parallel. Every entry is attempted, so a single
@@ -128,20 +166,48 @@ async function copyIncluded(directory) {
 /**
  * Collects the local file paths that an `exports` field points to.
  *
- * Handles the string, array, and conditions forms. Targets that are not relative paths, or that contain a `*`
- * pattern, cannot be checked for existence and are skipped.
+ * Handles the string, array, and conditions forms. Targets that are not relative paths cannot be checked for
+ * existence and are skipped. Targets with a `*` pattern are kept as they are.
  *
  * @param {unknown} exportsField The value of the `exports` field, or a nested part of it.
- * @returns {string[]} The relative paths, for example `./configs/base.yaml`.
+ * @returns {string[]} The relative paths, for example `./configs/*.js`.
  */
 function collectExportTargets(exportsField) {
     if (typeof exportsField === 'string') {
-        return exportsField.startsWith('./') && !exportsField.includes('*') ? [exportsField] : [];
+        return exportsField.startsWith('./') ? [exportsField] : [];
     }
     if (exportsField !== null && typeof exportsField === 'object') {
         return Object.values(exportsField).flatMap(collectExportTargets);
     }
     return [];
+}
+
+/**
+ * Checks that a target of the `exports` field exists in the given directory.
+ *
+ * A target with a `*` pattern in its file name exists when at least one file matches it. A `*` in any other part of
+ * the path cannot be checked and is assumed to exist.
+ *
+ * @param {string} directory The directory that holds the package to verify.
+ * @param {string} target The relative path, for example `./configs/*.js`.
+ * @returns {Promise<boolean>} Whether the target exists.
+ */
+async function targetExists(directory, target) {
+    if (!target.includes('*')) {
+        return access(join(directory, target)).then(
+            () => true,
+            () => false,
+        );
+    }
+    if (dirname(target).includes('*')) {
+        return true;
+    }
+    const [prefix = '', suffix = ''] = basename(target).split('*');
+    const entries = await readdir(join(directory, dirname(target))).catch(() => /** @type {string[]} */ ([]));
+
+    return entries.some(
+        (entry) => entry.length >= prefix.length + suffix.length && entry.startsWith(prefix) && entry.endsWith(suffix),
+    );
 }
 
 /**
@@ -157,12 +223,7 @@ function collectExportTargets(exportsField) {
 async function verifyExports(directory, manifest) {
     const targets = [...new Set(collectExportTargets(manifest.exports))];
     const results = await Promise.all(
-        targets.map((target) =>
-            access(join(directory, target)).then(
-                () => null,
-                () => target,
-            ),
-        ),
+        targets.map(async (target) => ((await targetExists(directory, target)) ? null : target)),
     );
     const missing = results.filter((target) => target !== null);
 
@@ -186,9 +247,9 @@ async function replaceDist() {
 /**
  * Builds the `dist` directory.
  *
- * Assembles the files in the staging directory first and verifies the `exports` field against them. If a step
- * fails, the staging directory is removed and the existing `dist` is left as it was. The error of the failed step is
- * always the one that gets thrown, even when the cleanup fails as well.
+ * Compiles the sources and assembles the files in the staging directory first, and verifies the `exports` field
+ * against them. If a step fails, the staging directory is removed and the existing `dist` is left as it was. The error
+ * of the failed step is always the one that gets thrown, even when the cleanup fails as well.
  *
  * @returns {Promise<void>}
  * @throws {Error} When any step fails.
@@ -202,6 +263,9 @@ async function prepareDist() {
     await resetDirectory(stagingDir);
 
     try {
+        console.log('Compiling the sources');
+        await compileSources(stagingDir);
+
         console.log('Writing "package.json"');
         await writeManifest(stagingDir, manifest);
 
