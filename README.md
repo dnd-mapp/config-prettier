@@ -1,5 +1,6 @@
 # @dnd-mapp/config-prettier
 
+[![push main](https://github.com/dnd-mapp/config-prettier/actions/workflows/push-main.yaml/badge.svg?branch=main)](https://github.com/dnd-mapp/config-prettier/actions/workflows/push-main.yaml)
 [![npm version](https://img.shields.io/npm/v/@dnd-mapp/config-prettier)](https://www.npmjs.com/package/@dnd-mapp/config-prettier)
 [![license](https://img.shields.io/npm/l/@dnd-mapp/config-prettier)](LICENSE)
 
