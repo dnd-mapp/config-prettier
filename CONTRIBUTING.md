@@ -29,7 +29,7 @@ Newly published releases are held back for three days through `minimumReleaseAge
 
 Configs are written in TypeScript and live in `src/configs/*.ts`. Import other files with the `.ts` extension, because the compiler rewrites it to `.js`. The `exports` map in `package.json` exposes each config without the extension. The package entry point, `src/index.ts`, exports the default config, which is `base`.
 
-The `prepublishOnly` script compiles the sources to JavaScript and type declarations in `dist`. Run `pnpm exec tsc` to type check the sources without emitting anything.
+The `build` script compiles the sources to JavaScript and type declarations in `dist`, and the `prepublishOnly` script runs it. Run `pnpm run typecheck` to type check the sources without emitting anything.
 
 When you add a config, build it on `base` by importing and spreading it, so a change to `base` reaches every config. Prettier does not merge `overrides` on spread, so concatenate the arrays instead.
 
@@ -37,12 +37,14 @@ When a config uses a plugin, list that plugin as an optional peer dependency in 
 
 Keep every config limited to formatting options and the plugins that format code. Do not add options that depend on the project or the environment. Keep `base` free of plugins. Consumers can extend the config in their own Prettier configuration.
 
-Check and format the repository with these commands. CI runs `format-check` and `lint-md`.
+Check and format the repository with these commands. CI runs `format-check`, `lint-md`, `typecheck`, and `build`.
 
 ```bash
 pnpm run format-check
 pnpm run format
 pnpm run lint-md
+pnpm run typecheck
+pnpm run build
 ```
 
 The `lint-md` script lints the Markdown files with markdownlint.
