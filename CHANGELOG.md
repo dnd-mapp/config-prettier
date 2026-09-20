@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-09-20
+
 ### Added
 
 - `organize-imports` config, available as `@dnd-mapp/config-prettier/organize-imports`. It extends `base` with `prettier-plugin-organize-imports`.
@@ -18,5 +20,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - `base` config, available as `@dnd-mapp/config-prettier` and `@dnd-mapp/config-prettier/base`.
 
-[Unreleased]: https://github.com/dnd-mapp/config-prettier/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/dnd-mapp/config-prettier/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/dnd-mapp/config-prettier/releases/tag/v1.1.0
 [1.0.0]: https://github.com/dnd-mapp/config-prettier/releases/tag/v1.0.0
