@@ -37,7 +37,9 @@
     "directory": "dist"
   },
   "scripts": {
-    "prepublishOnly": "node scripts/prepare-dist.js",
+    "prepublishOnly": "pnpm run build",
+    "build": "node scripts/prepare-dist.js",
+    "typecheck": "tsc",
     "format": "prettier -w .",
     "format-check": "prettier -c .",
     "lint-md": "markdownlint-cli2"
