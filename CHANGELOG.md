@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-09-20
+
 ### Added
 
 - `base` config, available as `@dnd-mapp/config-prettier` and `@dnd-mapp/config-prettier/base`.
+
+[Unreleased]: https://github.com/dnd-mapp/config-prettier/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/dnd-mapp/config-prettier/releases/tag/v1.0.0
