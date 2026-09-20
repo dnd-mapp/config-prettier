@@ -50,7 +50,7 @@ Every config ships with type declarations. Each one is typed as a Prettier `Conf
 
 This config includes everything from `base` and adds [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports). The plugin sorts and removes unused imports when Prettier formats a file.
 
-The plugin is an optional peer dependency, so install it together with `typescript`, which it requires.
+The plugin is an optional peer dependency, so install it together with `typescript`, which it requires. The supported versions are `prettier-plugin-organize-imports` 4 and `typescript` 6.
 
 ```bash
 pnpm add --save-dev prettier prettier-plugin-organize-imports typescript @dnd-mapp/config-prettier
