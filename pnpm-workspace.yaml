@@ -14,7 +14,7 @@ strictPeerDependencies: true
 engineStrict: true
 
 # Build Settings
-allowBuilds: {}
+allowBuilds: { lefthook: true }
 
 # Other Settings
 catalogMode: "strict"
@@ -28,6 +28,10 @@ catalog:
   markdownlint-cli2: ~0.23.2
   typescript: ~6.0.3
 catalogs:
+  commitlint:
+    "@commitlint/cli": ~21.2.2
+    "@dnd-mapp/config-commitlint": ~1.0.0
+    lefthook: ~2.1.14
   prettier:
     prettier: ~3.9.7
     prettier-plugin-organize-imports: ~4.3.0
