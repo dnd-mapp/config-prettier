@@ -37,8 +37,8 @@
     "directory": "dist"
   },
   "scripts": {
-    "prepublishOnly": "pnpm run build",
-    "build": "node scripts/prepare-dist.js",
+    "prepublishOnly": "pnpm run build && prepare-dist",
+    "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc",
     "format": "prettier -w .",
     "format-check": "prettier -c .",
@@ -62,6 +62,7 @@
   "devDependencies": {
     "@dnd-mapp/config-markdown": "catalog:",
     "@dnd-mapp/config-typescript": "catalog:",
+    "@dnd-mapp/package-builder": "catalog:",
     "@types/node": "catalog:",
     "markdownlint-cli2": "catalog:",
     "prettier": "catalog:prettier",

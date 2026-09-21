@@ -29,7 +29,7 @@ Newly published releases are held back for three days through `minimumReleaseAge
 
 Configs are written in TypeScript and live in `src/configs/*.ts`. Import other files with the `.ts` extension, because the compiler rewrites it to `.js`. The `exports` map in `package.json` exposes each config without the extension. The package entry point, `src/index.ts`, exports the default config, which is `base`.
 
-The `build` script compiles the sources to JavaScript and type declarations in `dist`, and the `prepublishOnly` script runs it. Run `pnpm run typecheck` to type check the sources without emitting anything.
+The `build` script compiles the sources to JavaScript and type declarations in `dist`. The `prepublishOnly` script runs it, and then runs `prepare-dist` from `@dnd-mapp/package-builder`. That command writes the trimmed `package.json`, copies the files listed in `.prepare-distrc.json`, and checks the `exports`. Run `pnpm run typecheck` to type check the sources without emitting anything.
 
 When you add a config, build it on `base` by importing and spreading it, so a change to `base` reaches every config. Prettier does not merge `overrides` on spread, so concatenate the arrays instead.
 

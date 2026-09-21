@@ -1,7 +1,8 @@
 {
     "$schema": "https://json.schemastore.org/tsconfig",
     "extends": "@dnd-mapp/config-typescript/base.json",
-    "include": ["scripts", "src"],
+    "files": [".prettierrc.ts"],
+    "include": ["src"],
     "compilerOptions": {
         "allowJs": true,
         "checkJs": true,
