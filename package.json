@@ -1,7 +1,7 @@
 {
   "$schema": "https://www.schemastore.org/package.json",
   "name": "@dnd-mapp/config-prettier",
-  "description": "Prettier configuration shared across D&D Mapp projects.",
+  "description": "Shared Prettier config for consistent code formatting.",
   "version": "1.1.0",
   "license": "MIT",
   "type": "module",
@@ -42,6 +42,7 @@
     "typecheck": "tsc",
     "format": "prettier -w .",
     "format-check": "prettier -c .",
+    "lint-ts": "eslint",
     "lint-md": "markdownlint-cli2"
   },
   "engines": {
@@ -62,10 +63,12 @@
   "devDependencies": {
     "@commitlint/cli": "catalog:commitlint",
     "@dnd-mapp/config-commitlint": "catalog:commitlint",
+    "@dnd-mapp/config-eslint": "catalog:eslint",
     "@dnd-mapp/config-markdown": "catalog:",
     "@dnd-mapp/config-typescript": "catalog:",
     "@dnd-mapp/package-builder": "catalog:",
     "@types/node": "catalog:",
+    "eslint": "catalog:eslint",
     "lefthook": "catalog:commitlint",
     "markdownlint-cli2": "catalog:",
     "prettier": "catalog:prettier",
