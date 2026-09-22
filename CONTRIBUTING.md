@@ -25,6 +25,17 @@ Dependency versions live in the catalogs in `pnpm-workspace.yaml`, which uses `c
 
 Newly published releases are held back for three days through `minimumReleaseAge`. You may need to wait before you can bump to a very recent version.
 
+## Git hooks
+
+[Lefthook](https://lefthook.dev/) installs the Git hooks when you run `pnpm install`. The hooks are defined in `lefthook.yaml`.
+
+| Hook         | Runs                                           | On                        |
+|:-------------|:-----------------------------------------------|:--------------------------|
+| `pre-commit` | Prettier, markdownlint-cli2, and ESLint checks | The staged files          |
+| `commit-msg` | commitlint                                     | The message of the commit |
+
+The pre-commit hooks only check files. Run `pnpm run format` to fix formatting issues, and `pnpm exec eslint --fix` to apply the fixes that ESLint can make. Stage the result.
+
 ## Changing or adding a config
 
 Configs are written in TypeScript and live in `src/configs/*.ts`. Import other files with the `.ts` extension, because the compiler rewrites it to `.js`. The `exports` map in `package.json` exposes each config without the extension. The package entry point, `src/index.ts`, exports the default config, which is `base`.
@@ -37,17 +48,18 @@ When a config uses a plugin, list that plugin as an optional peer dependency in 
 
 Keep every config limited to formatting options and the plugins that format code. Do not add options that depend on the project or the environment. Keep `base` free of plugins. Consumers can extend the config in their own Prettier configuration.
 
-Check and format the repository with these commands. CI runs `format-check`, `lint-md`, `typecheck`, and `build`.
+Check and format the repository with these commands. CI runs `format-check`, `lint-md`, `lint-ts`, `typecheck`, and `build`.
 
 ```bash
 pnpm run format-check
 pnpm run format
 pnpm run lint-md
+pnpm run lint-ts
 pnpm run typecheck
 pnpm run build
 ```
 
-The `lint-md` script lints the Markdown files with markdownlint.
+The `lint-md` script lints the Markdown files with markdownlint, and the `lint-ts` script lints the code with ESLint.
 
 When you add or change an option, update the README in the same pull request.
 
