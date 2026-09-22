@@ -1,7 +1,7 @@
 {
   "$schema": "https://www.schemastore.org/package.json",
   "name": "@dnd-mapp/config-prettier",
-  "description": "Prettier configuration shared across D&D Mapp projects.",
+  "description": "Shared Prettier config for consistent code formatting.",
   "version": "1.1.0",
   "license": "MIT",
   "type": "module",

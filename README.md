@@ -4,7 +4,7 @@
 [![npm version](https://img.shields.io/npm/v/@dnd-mapp/config-prettier)](https://www.npmjs.com/package/@dnd-mapp/config-prettier)
 [![license](https://img.shields.io/npm/l/@dnd-mapp/config-prettier)](LICENSE)
 
-Shared Prettier config for all D&D Mapp projects.
+Shared Prettier config for consistent code formatting.
 
 ## Requirements
 
