@@ -79,7 +79,7 @@
   "peerDependencies": {
     "prettier": "^3",
     "prettier-plugin-organize-imports": "^4",
-    "typescript": "^6"
+    "typescript": "^6 || ^7.0.0"
   },
   "peerDependenciesMeta": {
     "prettier-plugin-organize-imports": {
