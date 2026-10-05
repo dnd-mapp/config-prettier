@@ -33,7 +33,7 @@ catalogs:
   commitlint:
     "@commitlint/cli": ~21.2.3
     "@dnd-mapp/config-commitlint": ~1.1.0
-    lefthook: ~2.1.14
+    lefthook: ~2.1.16
   eslint:
     "@dnd-mapp/config-eslint": ~1.1.0
     eslint: ~10.11.0
